@@ -27,7 +27,7 @@ function Game() {
         setup.snake.eat(setup.fruit);
       }
 
-      this.gameLoop = window.setInterval(loop, 10);
+      this.gameLoop = window.setInterval(loop, 250);
 
     } else {
       console.log("The game is already running!");

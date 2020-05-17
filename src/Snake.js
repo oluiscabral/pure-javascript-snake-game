@@ -1,10 +1,9 @@
 function Snake() {
-  this.x = (Math.floor(Math.random() * columns)) * scale;
-  this.y = (Math.floor(Math.random() * rows)) * scale;
-  const speed = {base: scale*0.1, x: 0, y: 0};
+  this.x = (Math.floor(Math.random() * rows - 1) + 1) * scale;
+  this.y = (Math.floor(Math.random() * columns - 1) + 1) * scale;
+  const speed = {base: scale*1, x: 0, y: 0};
   const fruit = {amount:0};
   const tail = [];
-  const requestedDirection = {x: 0, y:0};
 
   this.draw = function() {
     ctx.fillStyle = "#FFFF"
@@ -13,18 +12,8 @@ function Snake() {
       drawTail(this.x, this.y);
     }
 
-    if(this.x % scale == 0 && this.y % scale == 0 && (requestedDirection.x != 0 || requestedDirection.y != 0)) {
-      this.x += requestedDirection.x;
-      this.y += requestedDirection.y;
-      speed.x = requestedDirection.x;
-      speed.y = requestedDirection.y;
-      requestedDirection.x = 0;
-      requestedDirection.y = 0
-    } else {
-      this.x += speed.x;
-      this.y += speed.y;
-    }
-
+    this.x += speed.x;
+    this.y += speed.y;
 
     if (this.x >= canvas.width) {
       this.x = 0;
@@ -44,26 +33,26 @@ function Snake() {
     switch(direction) {
       case 'Up':
         if(speed.y == 0) {
-          requestedDirection.x = 0;
-          requestedDirection.y = -speed.base;
+          speed.x=0;
+          speed.y=-speed.base;
         }
         break;
       case 'Down':
         if(speed.y == 0) {
-          requestedDirection.x = 0;
-          requestedDirection.y = +speed.base;
+          speed.x=0;
+          speed.y=speed.base;
         }
         break;
       case 'Left':
         if(speed.x == 0) {
-          requestedDirection.x = -speed.base;
-          requestedDirection.y = 0;
+          speed.x=-speed.base;
+          speed.y=0;
         }
         break;
       case 'Right':
         if(speed.x == 0) {
-          requestedDirection.x = +speed.base;
-          requestedDirection.y = 0;
+          speed.x=speed.base;
+          speed.y=0;
         }
         break;
     }
